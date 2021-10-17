@@ -56,6 +56,39 @@ if(isset($_GET['remove_setting'])){
     }
 }
 ?>
+<?php 
+if(isset($_POST['add_d_fee'])){
+    $fee= $_POST['d-fee'];
+    $sql="update deposit_fee set deposit_fee = '$fee' where id = 'deposit-fee'";
+    $result=$conn->query($sql);
+    if($result){
+      $_SESSION['remove_setting_success']="Deposit Fee Updated Successfully";
+      header("location: charges_settings.php");
+      die();
+    }
+    else{
+      echo $conn->error;
+    }
+}
+
+?>
+
+<?php 
+if(isset($_POST['add_p_fee'])){
+    $fee= $_POST['p-fee'];
+    $sql="update withdraw_fee set withdraw_fee = '$fee' where id = 'withdraw-fee'";
+    $result=$conn->query($sql);
+    if($result){
+      $_SESSION['remove_setting_success']="Withdraw Fee Updated Successfully";
+      header("location: charges_settings.php");
+      die();
+    }
+    else{
+      echo $conn->error;
+    }
+}
+
+?>
 
 <body class="">
     <?php include "include/navbar.php";?>
@@ -78,6 +111,62 @@ if(isset($_GET['remove_setting'])){
                 </div>
             <?php }unset($_SESSION['remove_setting_success']);?>
             <div class="row">
+            <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Deposit fee</h4>
+                  <p class="card-category">Here You can Set Deposit Fee</p>
+                </div>
+                <div class="card-body">
+                  <form method="POST" action="#">
+                  <div class="row">
+                      <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                          <?php 
+                           $sql = "select deposit_fee from deposit_fee";
+                           $result = $conn->query($sql);
+                            $row=mysqli_fetch_assoc($result);
+                            $dfee=$row['deposit_fee'];
+                          ?>
+                          <label class="bmd-label-floating">Deposit Fee (%)</label>
+                          <input type="number" step="0.01" class="form-control" value="<?php echo $dfee;?>" name="d-fee" required>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-left" name="add_d_fee">Update Deposit Fee</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Payout Fee</h4>
+                  <p class="card-category">Here You can Set Payout Fee</p>
+                </div>
+                <div class="card-body">
+                  <form method="POST" action="#">
+                  <div class="row">
+                      <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                        <?php 
+                           $sql = "select withdraw_fee from withdraw_fee";
+                           $result = $conn->query($sql);
+                            $row=mysqli_fetch_assoc($result);
+                            $pfee=$row['withdraw_fee'];
+                          ?>
+                          <label class="bmd-label-floating">Payout Fee (%)</label>
+                          <input type="number" step="0.01" class="form-control" value="<?php echo $pfee;?>" name="p-fee" required>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-left" name="add_p_fee">Update Payout Fee</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
