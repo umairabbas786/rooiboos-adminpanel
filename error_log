@@ -1,2 +1,0 @@
-[22-Sep-2021 18:42:55 UTC] PHP Parse error:  syntax error, unexpected '' (T_ENCAPSED_AND_WHITESPACE), expecting '-' or identifier (T_STRING) or variable (T_VARIABLE) or number (T_NUM_STRING) in /home/portfoliosindept/public_html/Projects/rooiboos/include/header.php on line 18
-[22-Sep-2021 18:42:57 UTC] PHP Parse error:  syntax error, unexpected '' (T_ENCAPSED_AND_WHITESPACE), expecting '-' or identifier (T_STRING) or variable (T_VARIABLE) or number (T_NUM_STRING) in /home/portfoliosindept/public_html/Projects/rooiboos/include/header.php on line 18

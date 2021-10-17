@@ -137,6 +137,7 @@ if(isset($_GET['remove_setting'])){
                         </div>
                       </div>
                     </div>
+                    <p class="lead bg-warning d-block p-2 rounded text-center">e.g. 1 USD(from) = 172 PKR (To) , Currency Rate = 172</p>
                     <button type="submit" class="btn btn-primary pull-left" name="add_charges_settings">Add Settings</button>
                     <div class="clearfix"></div>
                   </form>

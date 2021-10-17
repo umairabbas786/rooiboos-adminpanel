@@ -60,7 +60,7 @@ if(isset($_GET['remove_staff'])){
                     </div>
                   <!-- DataTale-->
         <div class="card-body">
-            <div class="table-responsive text-center">
+            <div class="table-responsive">
             <table id="dataTable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                       <thead>
                         <tr>

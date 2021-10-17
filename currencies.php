@@ -71,13 +71,13 @@ if(isset($_GET['remove_currency'])){
                   <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Currency</label>
+                          <label class="bmd-label-floating">Currency Name</label>
                           <input type="text" class="form-control" name="name" required>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Code</label>
+                          <label class="bmd-label-floating">Currency Code</label>
                           <input type="text" class="form-control" maxlength="5" name="code" required>
                         </div>
                       </div>
