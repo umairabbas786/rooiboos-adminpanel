@@ -64,14 +64,15 @@ if (empty(isset($_SESSION['user']))) {
                             <td><?php echo $email;?></td>
                            <?php 
                             //for country name;
-                          $ssql="select name from countries where id='$country'";
+                          $ssql="select name,code from currency where id='$currency_id'";
                           $resultt=$conn->query($ssql);
                           $row=mysqli_fetch_assoc($resultt);
-                          $country_name=$row['name'];
+                          $c_code=$row['code'];
+                          $currency_name=$row['name'];
                             ?>
-                            <td><?php echo $country_name;?></td>
-                            <td><?php echo $created_at;?></td>
-                            <td><?php echo $updated_at;?></td>
+                            <td><?php echo $currency_name;?></td>
+                            <td><?php echo $balance;?> <?php echo $c_code;?></td>
+                            <td><?php echo $deposit_date;?></td>
                         </tr>
                       <?php $i++;}?>
                       </tbody>
