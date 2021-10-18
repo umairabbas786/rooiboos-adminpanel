@@ -100,7 +100,7 @@ if(isset($_SESSION['user'])){
           </li>
           <?php }?>
           <li class="nav-item ">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="deposit.php">
               <i class="fa fa-plus"></i>
               <p>Deposit</p>
             </a>
