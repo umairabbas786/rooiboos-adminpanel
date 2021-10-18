@@ -18,7 +18,7 @@ if (empty(isset($_SESSION['user']))) {
                     <div class="card">
                     <div class="card-header card-header-primary card-header-icon">
                       <div class="card-icon">
-                        <i class="fa fa-id-badge" style="font-size:24px;"></i>
+                        <i class="fa fa-plus" style="font-size:24px;"></i>
                       </div>
                       <h4 class="card-title">Deposits</h4>
                     </div>

@@ -96,7 +96,7 @@ if(isset($_GET['remove_country'])){
                     <div class="card">
                       <div class="card-header card-header-primary card-header-icon" >
                       <div class="card-icon">
-                        <i class="fa fa-money" style="font-size:24px;"></i>
+                        <i class="fa fa-globe" style="font-size:24px;"></i>
                       </div>
                       <h4 class="card-title">Countries</h4>
                     </div>

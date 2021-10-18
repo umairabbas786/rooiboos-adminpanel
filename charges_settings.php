@@ -239,9 +239,9 @@ if(isset($_POST['add_p_fee'])){
                     <div class="card">
                       <div class="card-header card-header-primary card-header-icon" >
                       <div class="card-icon">
-                        <i class="fa fa-money" style="font-size:24px;"></i>
+                        <i class="fa fa-sliders" style="font-size:24px;"></i>
                       </div>
-                      <h4 class="card-title">Currency</h4>
+                      <h4 class="card-title">Charges</h4>
                     </div>
                         <!-- DataTales Example -->
         <div class="card-body">
