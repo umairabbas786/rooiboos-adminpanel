@@ -90,6 +90,23 @@ if(isset($_POST['add_p_fee'])){
 
 ?>
 
+<?php 
+if(isset($_POST['add_s_fee'])){
+    $fee= $_POST['s-fee'];
+    $sql="update send_fee set send_fee = '$fee' where id = 'send-fee'";
+    $result=$conn->query($sql);
+    if($result){
+      $_SESSION['remove_setting_success']="P2P Fee Updated Successfully";
+      header("location: charges_settings.php");
+      die();
+    }
+    else{
+      echo $conn->error;
+    }
+}
+
+?>
+
 <body class="">
     <?php include "include/navbar.php";?>
     <!--Content Start-->
@@ -134,6 +151,34 @@ if(isset($_POST['add_p_fee'])){
                       </div>
                     </div>
                     <button type="submit" class="btn btn-primary pull-left" name="add_d_fee">Update Deposit Fee</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Person To Person fee</h4>
+                  <p class="card-category">Here You can Set P2P Fee</p>
+                </div>
+                <div class="card-body">
+                  <form method="POST" action="#">
+                  <div class="row">
+                      <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                          <?php 
+                           $sql = "select send_fee from send_fee";
+                           $result = $conn->query($sql);
+                            $row=mysqli_fetch_assoc($result);
+                            $pfee=$row['send_fee'];
+                          ?>
+                          <label class="bmd-label-floating">P2P Fee (%)</label>
+                          <input type="number" step="0.01" class="form-control" value="<?php echo $pfee;?>" name="s-fee" required>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-left" name="add_s_fee">Update P2P Fee</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
