@@ -66,8 +66,14 @@ if (empty(isset($_SESSION['user']))) {
                             <div class="card-icon">
                                 <i class="material-icons">info_outline</i>
                             </div>
+                            <?php 
+                            $sql="select count(id) from withdraw_history where status=0";
+                            $result=$conn->query($sql);
+                            $row=mysqli_fetch_assoc($result);
+                            $pending=$row['count(id)'];
+                            ?>
                             <p class="card-category">Pending Payments</p>
-                            <h3 class="card-title">7</h3>
+                            <h3 class="card-title"><?php echo $pending;?></h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
