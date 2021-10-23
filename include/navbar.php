@@ -99,7 +99,7 @@ if(isset($_SESSION['user'])){
             </div>
           </li>
           <?php }?>
-          <li class="nav-item ">
+          <li class="nav-item <?php if($_SERVER['REQUEST_URI'] == "/deposit.php"){echo 'active';}?>">
             <a class="nav-link" href="deposit.php">
               <i class="fa fa-plus"></i>
               <p>Deposit</p>
@@ -111,8 +111,8 @@ if(isset($_SESSION['user'])){
               <p>Transfer Payments</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="#">
+          <li class="nav-item <?php if($_SERVER['REQUEST_URI'] == "/settlement_requests.php"){echo 'active';}?>">
+            <a class="nav-link" href="settlement_requests.php">
               <i class="fa fa-handshake-o"></i>
               <p>Settlement Requests</p>
             </a>
@@ -176,6 +176,8 @@ if(isset($_SESSION['user'])){
   else if($_SERVER['REQUEST_URI'] == "/countries.php"){$heading="Countries";}
   else if($_SERVER['REQUEST_URI'] == "/banks.php"){$heading="Banks";}
   else if($_SERVER['REQUEST_URI'] == "/edit_customer.php"){$heading="Customer";}
+  else if($_SERVER['REQUEST_URI'] == "/settlement_requests.php"){$heading="Settlement Requests";}
+  else if($_SERVER['REQUEST_URI'] == "/deposit.php"){$heading="Deposit History";}
   ?>
             <!--end- Page Heading-->
             <a class="navbar-brand" href="javascript:;"><?php echo $heading;?></a>

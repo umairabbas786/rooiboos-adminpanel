@@ -128,7 +128,7 @@ if(isset($_POST['add_s_fee'])){
                 </div>
             <?php }unset($_SESSION['remove_setting_success']);?>
             <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
             <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title">Deposit fee</h4>
@@ -156,7 +156,7 @@ if(isset($_POST['add_s_fee'])){
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
             <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title">Person To Person fee</h4>

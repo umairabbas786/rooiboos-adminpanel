@@ -26,6 +26,8 @@ include "include/conn.php";
   else if($_SERVER['REQUEST_URI'] == "/countries.php"){$title="Countries - Rooi Boos";}
   else if($_SERVER['REQUEST_URI'] == "/banks.php"){$title="Banks - Rooi Boos";}
   else if($_SERVER['REQUEST_URI'] == "/edit_customers.php"){$title="Edit Customer - Rooi Boos";}
+  else if($_SERVER['REQUEST_URI'] == "/settlement_requests.php"){$title="Settlement Requests - Rooi Boos";}
+  else if($_SERVER['REQUEST_URI'] == "/deposit.php"){$title="Deposit History - Rooi Boos";}
   ?>
   <title><?php echo $title;?></title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
