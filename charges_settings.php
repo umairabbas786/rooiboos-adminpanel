@@ -10,11 +10,11 @@ if (empty(isset($_SESSION['user']))) {
 
 <?php
 if(isset($_POST['add_charges_settings'])){
-  $sql1="select * from currency_setting";
+  $sql1="select * from currency_charges";
   $result1=$conn->query($sql1);
   while($row1=mysqli_fetch_assoc($result1)){
-    $ic=$row1['initial_currency'];
-    $fc=$row1['final_currency'];
+    $ic=$row1['from_id'];
+    $fc=$row1['to_id'];
   }
   $from=$_POST['i_currency'];
   $to=$_POST['f_currency'];
@@ -23,10 +23,9 @@ if(isset($_POST['add_charges_settings'])){
   }
   else{
   $rate=$_POST['rate'];
-  $fee = $_POST['fee'];
   $dt = date('Y-m-d h:i:s'); 
   $id=uniqid();
-  $sql="insert into currency_setting(id,initial_currency,final_currency,rate,fee,created_at,updated_at)values ('$id','$from','$to','$rate','$fee','$dt','$dt')";
+  $sql="insert into currency_charges(id,from_id,to_id,rate,created_at,updated_at)values ('$id','$from','$to','$rate','$dt','$dt')";
   $result=$conn->query($sql);
   if($result){
     $_SESSION['charges_settings_success']="Settings Added Successfully";
@@ -43,7 +42,7 @@ if(isset($_POST['add_charges_settings'])){
 <?php
 if(isset($_GET['remove_setting'])){
   $id=$_GET['remove_setting'];
-  $sql="Delete from currency_setting where id='$id'";
+  $sql="Delete from currency_charges where id='$id'";
   $delete=$conn->query($sql);
   if($delete)
     {
@@ -97,6 +96,23 @@ if(isset($_POST['add_s_fee'])){
     $result=$conn->query($sql);
     if($result){
       $_SESSION['remove_setting_success']="P2P Fee Updated Successfully";
+      header("location: charges_settings.php");
+      die();
+    }
+    else{
+      echo $conn->error;
+    }
+}
+
+?>
+
+<?php 
+if(isset($_POST['add_c_fee'])){
+    $fee= $_POST['c-fee'];
+    $sql="update currency_fee set currency_fee = '$fee' where id = 'currency-fee'";
+    $result=$conn->query($sql);
+    if($result){
+      $_SESSION['remove_setting_success']="Currency Fee Updated Successfully";
       header("location: charges_settings.php");
       die();
     }
@@ -184,7 +200,7 @@ if(isset($_POST['add_s_fee'])){
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
             <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title">Payout Fee</h4>
@@ -207,6 +223,34 @@ if(isset($_POST['add_s_fee'])){
                       </div>
                     </div>
                     <button type="submit" class="btn btn-primary pull-left" name="add_p_fee">Update Payout Fee</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Currency Convert fee</h4>
+                  <p class="card-category">Here You can Set Currency conversion Fee</p>
+                </div>
+                <div class="card-body">
+                  <form method="POST" action="#">
+                  <div class="row">
+                      <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                          <?php 
+                           $sql = "select currency_fee from currency_fee";
+                           $result = $conn->query($sql);
+                            $row=mysqli_fetch_assoc($result);
+                            $cfee=$row['currency_fee'];
+                          ?>
+                          <label class="bmd-label-floating">Currency Fee (%)</label>
+                          <input type="number" step="0.01" class="form-control" value="<?php echo $cfee;?>" name="c-fee" required>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-left" name="add_c_fee">Update P2P Fee</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
@@ -258,16 +302,10 @@ if(isset($_POST['add_s_fee'])){
                                   </select>
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Currency Rate</label>
-                          <input type="number" class="form-control" step="0.01" name="rate" required>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Conversion Fee (%)</label>
-                          <input type="number" class="form-control" step="0.01" name="fee" required>
+                          <input type="number" class="form-control" step="0.00005" name="rate" required>
                         </div>
                       </div>
                     </div>
@@ -297,8 +335,7 @@ if(isset($_POST['add_s_fee'])){
                           <th>Sr No.</th>
                           <th>From</th>
                           <th>To</th>
-                          <th>Currency Rate</th>
-                          <th>Conversion Fee</th>
+                          <th>Conversion Rate</th>
                           <th>Created At</th>
                           <th>Updated At</th>
                           <th class="disabled-sorting">Actions</th>
@@ -307,22 +344,21 @@ if(isset($_POST['add_s_fee'])){
                       <tbody>
                         <?php 
                         $i=1;
-                          $sql="select * from currency_setting";
+                          $sql="select * from currency_charges";
                           $result=$conn->query($sql);
                           while($row=mysqli_fetch_assoc($result)){
                             $charges_id=$row['id'];
-                            $from_id=$row['initial_currency'];
+                            $from_id=$row['from_id'];
                             $sql1="select name from currency where id= '$from_id'";
                             $result1=$conn->query($sql1);
                             $row1=mysqli_fetch_assoc($result1);
                             $from=$row1['name'];
-                            $to_id=$row['final_currency'];
+                            $to_id=$row['to_id'];
                             $sql2="select name from currency where id= '$to_id'";
                             $result2=$conn->query($sql2);
                             $row2=mysqli_fetch_assoc($result2);
                             $to=$row2['name'];
                             $rate=$row['rate'];
-                            $fee=$row['fee'];
                             $created_at = $row['created_at'];
                             $updated_at = $row['updated_at'];
                         ?>
@@ -331,7 +367,6 @@ if(isset($_POST['add_s_fee'])){
                           <td><?php echo $from;?></td>
                           <td><?php echo $to;?></td>
                           <td><?php echo $rate;?></td>
-                          <td><?php echo $fee;?>%</td>
                           <td><?php echo $created_at;?></td>
                           <td><?php echo $updated_at;?></td>
                           <td class="td-actions">
