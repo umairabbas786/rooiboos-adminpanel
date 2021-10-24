@@ -55,7 +55,7 @@ if (empty(isset($_SESSION['user']))) {
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                                <i class="material-icons">date_range</i> Last 24 Hours
+                                <i class="material-icons">date_range</i> Settlement Requests
                             </div>
                         </div>
                     </div>
@@ -77,23 +77,29 @@ if (empty(isset($_SESSION['user']))) {
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                            <i class="material-icons">date_range</i> Last 24 Hours 
+                            <i class="material-icons">date_range</i> Pending Payments
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="card card-stats">
                         <div class="card-header card-header-info card-header-icon">
                             <div class="card-icon">
                                 <i class="fa fa-exchange"></i>
                             </div>
+                            <?php 
+                            $sql="select count(id) from send_history";
+                            $result=$conn->query($sql);
+                            $row=mysqli_fetch_assoc($result);
+                            $transfer=$row['count(id)'];
+                            ?>
                             <p class="card-category">Transfer Payments</p>
-                            <h3 class="card-title">10</h3>
+                            <h3 class="card-title"><?php echo $transfer;?></h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                            <i class="material-icons">date_range</i> Last 24 Hours
+                            <i class="material-icons">date_range</i> Transfer Payments
                             </div>
                         </div>
                     </div>
