@@ -105,8 +105,8 @@ if(isset($_SESSION['user'])){
               <p>Deposit</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="#">
+          <li class="nav-item <?php if($_SERVER['REQUEST_URI'] == "/transfer_payments.php"){echo 'active';}?>">
+            <a class="nav-link" href="transfer_payments.php">
               <i class="fa fa-exchange"></i>
               <p>Transfer Payments</p>
             </a>
@@ -178,6 +178,7 @@ if(isset($_SESSION['user'])){
   else if($_SERVER['REQUEST_URI'] == "/edit_customer.php"){$heading="Customer";}
   else if($_SERVER['REQUEST_URI'] == "/settlement_requests.php"){$heading="Settlement Requests";}
   else if($_SERVER['REQUEST_URI'] == "/deposit.php"){$heading="Deposit History";}
+  else if($_SERVER['REQUEST_URI'] == "/transfer_payments.php"){$heading="Transfer Payments";}
   ?>
             <!--end- Page Heading-->
             <a class="navbar-brand" href="javascript:;"><?php echo $heading;?></a>
