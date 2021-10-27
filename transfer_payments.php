@@ -34,9 +34,9 @@ if (empty(isset($_SESSION['user']))) {
                           <th>Customer Email</th>
                           <th>Currency</th>
                           <th>Sent To</th>
-                          <th>Bank Name</th>
+                          <!-- <th>Bank Name</th>
                           <th>Account Holder Name</th>
-                          <th>Iban</th>
+                          <th>Iban</th> -->
                         <th>Amount</th>
                         <th>Send On</th>
                         </tr>
@@ -80,7 +80,7 @@ if (empty(isset($_SESSION['user']))) {
                             ?>
                             <td><?php echo $currency_name;?></td>
                             <td><?php echo $taker_email;?></td>
-                            <?php 
+                            <!-- <?php 
                             //for bank name;
                           $ssql="select name from banks where id='$bank_id'";
                           $resultt=$conn->query($ssql);
@@ -89,7 +89,7 @@ if (empty(isset($_SESSION['user']))) {
                             ?>
                             <td><?php echo $bank_name;?></td>
                             <td><?php echo $account_holder_name;?></td>
-                            <td><?php echo $iban;?></td>
+                            <td><?php echo $iban;?></td> -->
                             <td><?php echo $balance;?> <?php echo $c_code;?></td>
                             <td><?php echo $deposit_date;?></td>
                         </tr>
