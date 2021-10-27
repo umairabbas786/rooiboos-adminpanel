@@ -10,6 +10,17 @@ if (empty(isset($_SESSION['user']))) {
 
 <?php 
 if(isset($_GET['complete'])){
+    $dt = date('Y-m-d h:i:s'); 
+    $id=uniqid();
+
+    $cid = $_GET['c_id'];
+    $bal = $_GET['balance'];
+    $ccode = $_GET['ccode'];
+    $msg = $bal ." ".$ccode ." "."has been successfully Transferred to your Bank Account";
+
+    $sql1 = "insert into notification (id,customer_id,msg,state,created_at,updated_at)values('$id','$cid','$msg','UNREAD','$dt','$dt')";
+    $result1 = $conn->query($sql1);
+
     $id = $_GET['complete'];
     $sql = "update withdraw_history set status = 1 where id = '$id'";
     $result = $conn->query($sql);
@@ -21,6 +32,7 @@ if(isset($_GET['complete'])){
     else{
         $conn->error;
     }
+
 }
 
 
@@ -28,6 +40,7 @@ if(isset($_GET['complete'])){
 
 <?php 
 if(isset($_GET['cancle'])){
+
     $id = $_GET['cancle'];
     $ssql = "select customer_id,currency_id,balance from withdraw_history where id = '$id'";
     $rresult = $conn->query($ssql);
@@ -46,26 +59,34 @@ if(isset($_GET['cancle'])){
     $sql3 = "update customer_wallet set balance = '$new_bal' where customer_id = '$cus_id' and currency_id = '$cur_id'";
     $result3 =$conn->query($sql3);
     if($result3){
-       // 
+
+        $dt6 = date('Y-m-d h:i:s'); 
+    $uid6=uniqid("db");
+
+    $cid6 = $_GET['cc_id'];
+    $bal6 = $_GET['bbalance'];
+    $ccode6 = $_GET['cccode'];
+    $msg6 = $bal6 ." ".$ccode6 ." "."Can not been Transferred to your Bank Account due to technical issue." ." ".$bal6." ".$ccode6." "."is been deposited back to your Account.";
+    $sql6 = "insert into notification (id,customer_id,msg,state,created_at,updated_at)values('$uid6','$cid6','$msg6','UNREAD','$dt6','$dt6')";
+    $result6 = $conn->query($sql6);
+
+
+        $sql = "update withdraw_history set status = 2 where id = '$id'";
+        $result = $conn->query($sql);
+        if($result){
+            $_SESSION['success'] = "Settlement marked as CANCELLED";
+            header("location: settlement_requests.php");
+            die();
+        }
+        else{
+            $conn->error;
+        }
     }else{
         $conn->error;
         die();
     }
 
-
-    $sql = "update withdraw_history set status = 2 where id = '$id'";
-    $result = $conn->query($sql);
-    if($result){
-        $_SESSION['success'] = "Settlement marked as CANCELLED";
-        header("location: settlement_requests.php");
-        die();
-    }
-    else{
-        $conn->error;
-    }
 }
-
-
 ?>
 
 <body class="">
@@ -161,12 +182,12 @@ if(isset($_GET['cancle'])){
                                             <td><span class="badge badge-danger" style="font-size:14px;">Pending</span></td>
                                             <td><?php echo $deposit_date;?></td>
                                             <td class="td-actions">
-                          <a href="settlement_requests.php?complete=<?php echo $w_id?>" onclick="alert('Are You Sure?')">
+                          <a href="settlement_requests.php?complete=<?php echo $w_id?>&&c_id=<?php echo $customer_id;?>&&balance=<?php echo $balance;?>&&ccode=<?php echo $c_code;?>" onclick="alert('Are You Sure?')">
                             <button type="button" data-toggle="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
                               <i class="material-icons">done</i>
                             </button>
                               </a>
-                            <a href="settlement_requests.php?cancle=<?php echo $w_id?>" onclick="alert('Are You Sure?')">
+                            <a href="settlement_requests.php?cancle=<?php echo $w_id?>&&cc_id=<?php echo $customer_id;?>&&bbalance=<?php echo $balance;?>&&cccode=<?php echo $c_code;?>" onclick="alert('Are You Sure?')">
                             <button type="button" data-toggle="tooltip" class="btn btn-danger btn-round" data-original-title="" title="">
                               <i class="material-icons">close</i>
                             </button>
